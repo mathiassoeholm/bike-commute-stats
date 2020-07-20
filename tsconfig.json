@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM"],
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true
+  }
+}

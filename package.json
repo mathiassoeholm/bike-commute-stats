@@ -1,0 +1,14 @@
+{
+  "name": "bike-commute-stats",
+  "version": "0.1.0",
+  "repository": "git@github.com:mathiassoeholm/bike-commute-stats.git",
+  "author": "Mathias Soeholm <mathiassoeholm@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.7"
+  }
+}
