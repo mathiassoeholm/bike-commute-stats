@@ -5,6 +5,7 @@ import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { URLSearchParams } from "url";
 import fetch from "node-fetch";
 import { MongoClient } from "mongodb";
+import { SummaryActivity } from "./models/strava";
 
 require("dotenv").config();
 
@@ -41,19 +42,49 @@ require("dotenv").config();
     params.append("grant_type", "refresh_token");
     params.append("refresh_token", refreshToken);
 
-    const response = await fetch("https://www.strava.com/api/v3/oauth/token", {
-      method: "POST",
-      body: params,
-    });
+    const tokenResponse = await fetch(
+      "https://www.strava.com/api/v3/oauth/token",
+      {
+        method: "POST",
+        body: params,
+      }
+    );
 
-    const { access_token, refresh_token } = await response.json();
+    const { access_token, refresh_token } = await tokenResponse.json();
 
     await collection.updateOne(
       { _id },
       { $set: { refreshToken: refresh_token } }
     );
 
-    const html = ReactDOMServer.renderToString(<Home />);
+    const activitiesPerPage = 200;
+    let page = 1;
+    let allActivites: SummaryActivity[] = [];
+
+    while (true) {
+      const activitiesResponse = await fetch(
+        `https://www.strava.com/api/v3/athlete/activities?per_page=${activitiesPerPage}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+
+      const activities: SummaryActivity[] = await activitiesResponse.json();
+
+      if (!activities?.length) {
+        break;
+      }
+
+      allActivites = [...allActivites, ...activities.filter((a) => a.commute)];
+
+      page++;
+    }
+
+    const html = ReactDOMServer.renderToString(
+      <Home activities={allActivites} />
+    );
 
     if (!existsSync("./build")) {
       mkdirSync("build");
