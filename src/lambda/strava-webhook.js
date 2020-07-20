@@ -9,6 +9,15 @@ exports.handler = function (event, context, callback) {
       }),
     });
   } else {
-    console.log("A post call!");
+    console.log("A post call!", event.body);
+
+    const { object_type, updates } = event.body;
+    console.log("object_type", object_type);
+    console.log("updates", updates);
+
+    callback(null, {
+      statusCode: 200,
+      body: "Ok",
+    });
   }
 };
