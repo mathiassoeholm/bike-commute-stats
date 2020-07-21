@@ -20,5 +20,5 @@ const activites: SummaryActivity[] = [
 
 ReactDOM.render(
   <Home activities={activites} />,
-  document.getElementById("root")
+  document.querySelector("body")
 );

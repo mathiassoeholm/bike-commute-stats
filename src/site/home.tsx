@@ -29,23 +29,73 @@ const Home: React.FC<IProps> = ({ activities }) => {
         />
       </Helmet>
       <div
-        css={css(`
-        font-family: 'Heebo', sans-serif;
-      `)}
+        css={css`
+          font-family: "Heebo", sans-serif;
+          display: grid;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          letter-spacing: 0.11rem;
+          padding: 1rem;
+          box-sizing: border-box;
+        `}
       >
-        <p>BY BIKING TO WORK, MATHIAS HAS SAVED</p>
-        <h1>
-          {Math.round(totalCO2Kg * 100) / 100} kg CO
+        <p
+          css={css`
+            text-align: center;
+          `}
+        >
+          BY BIKING TO WORK, MATHIAS HAS SAVED
+          <br />
           <span
-            css={css(`
+            css={css`
               display: inline-block;
-              font-size: 0.6em;
-              transform: translateY(0.2em);
-            `)}
+              font-size: 3rem;
+              font-weight: 800;
+              margin: 0.5rem;
+              text-align: center;
+            `}
           >
-            2
+            {Math.round(totalCO2Kg * 100) / 100} kg CO
+            <span
+              css={css`
+                display: inline-block;
+                font-size: 0.6em;
+                transform: translateY(0.2em);
+              `}
+            >
+              2
+            </span>
           </span>
-        </h1>
+        </p>
+        <section
+          css={css`
+            max-width: 600px;
+          `}
+        >
+          <h2
+            css={css`
+              font-size: 1rem;
+              font-weight: 400;
+              text-align: center;
+            `}
+          >
+            Details
+          </h2>
+          <p>
+            * Savings are compared to driving an average new fossil fuel car.
+          </p>
+          <p>
+            * I assume that biking emits 0 kg CO2, because it replaces exercise
+            that would otherwise have taken place.
+          </p>
+          <p>
+            * According to the The Danish Council on Climate Change
+            (Klimarådet), an average new fossil fuel car emits 210 g CO2 per
+            kilometer. Source: “Hvor klimavenlige er elbiler sammenlignet med
+            benzin- og dieselbiler?”
+          </p>
+        </section>
       </div>
     </React.Fragment>
   );
