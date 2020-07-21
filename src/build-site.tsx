@@ -5,6 +5,7 @@ import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { URLSearchParams } from "url";
 import fetch from "node-fetch";
 import { MongoClient } from "mongodb";
+import { Helmet } from "react-helmet";
 import { SummaryActivity } from "./models/strava";
 
 require("dotenv").config();
@@ -82,9 +83,25 @@ require("dotenv").config();
       page++;
     }
 
-    const html = ReactDOMServer.renderToString(
+    const reactHtmlOutput = ReactDOMServer.renderToString(
       <Home activities={allActivites} />
     );
+
+    const helmet = Helmet.renderStatic();
+
+    const html = `
+    <!doctype html>
+    <html ${helmet.htmlAttributes.toString()}>
+        <head>
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
+            ${helmet.link.toString()}
+        </head>
+        <body ${helmet.bodyAttributes.toString()}>
+            ${reactHtmlOutput}
+        </body>
+    </html>
+`;
 
     if (!existsSync("./build")) {
       mkdirSync("build");
