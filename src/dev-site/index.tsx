@@ -1,5 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Home } from "../site/home";
+import { SummaryActivity } from "../models/strava";
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+const activites: SummaryActivity[] = [
+  {
+    distance: 10,
+    commute: true,
+  },
+];
+
+ReactDOM.render(
+  <Home activities={activites} />,
+  document.getElementById("root")
+);
