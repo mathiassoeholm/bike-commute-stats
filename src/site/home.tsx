@@ -8,8 +8,16 @@ interface IProps {
   activities: SummaryActivity[];
 }
 
+const CO2_KILOGRAMS_PER_KILOMETER = 0.21;
+
 const Home: React.FC<IProps> = ({ activities }) => {
   const commuteActivites = activities.filter((a) => a.commute);
+  const totalKilometers = commuteActivites.reduce(
+    (acc, activity) => acc + activity.distance / 1000,
+    0
+  );
+
+  const totalCO2Kg = totalKilometers * CO2_KILOGRAMS_PER_KILOMETER;
 
   return (
     <React.Fragment>
@@ -25,7 +33,19 @@ const Home: React.FC<IProps> = ({ activities }) => {
         font-family: 'Heebo', sans-serif;
       `)}
       >
-        <h1>Number of commutes: {commuteActivites.length}</h1>
+        <p>BY BIKING TO WORK, MATHIAS HAS SAVED</p>
+        <h1>
+          {Math.round(totalCO2Kg * 100) / 100} kg CO
+          <span
+            css={css(`
+              display: inline-block;
+              font-size: 0.6em;
+              transform: translateY(0.2em);
+            `)}
+          >
+            2
+          </span>
+        </h1>
       </div>
     </React.Fragment>
   );

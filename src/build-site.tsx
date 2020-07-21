@@ -6,7 +6,9 @@ import { URLSearchParams } from "url";
 import fetch from "node-fetch";
 import { MongoClient } from "mongodb";
 import { Helmet } from "react-helmet";
+import { minify } from "html-minifier";
 import { SummaryActivity } from "./models/strava";
+import { triggerAsyncId } from "async_hooks";
 
 require("dotenv").config();
 
@@ -30,7 +32,10 @@ require("dotenv").config();
   }
 
   const uri = `mongodb+srv://admin:${MONGODB_PASSWORD}@cluster0-1mz6n.mongodb.net/${MONGODB_DB}?retryWrites=true&w=majority`;
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   try {
     await client.connect();
 
@@ -103,10 +108,18 @@ require("dotenv").config();
     </html>
 `;
 
+    const minifiedHtml = minify(html, {
+      collapseWhitespace: true,
+      removeComments: true,
+      removeOptionalTags: true,
+      removeRedundantAttributes: true,
+      minifyCSS: true,
+    });
+
     if (!existsSync("./build")) {
       mkdirSync("build");
     }
-    writeFileSync("./build/index.html", html);
+    writeFileSync("./build/index.html", minifiedHtml);
   } finally {
     client.close();
   }
