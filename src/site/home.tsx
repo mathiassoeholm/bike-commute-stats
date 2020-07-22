@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { SummaryActivity } from "../models/strava";
+import { GithubIcon } from "./github-icon";
 
 interface IProps {
   activities: SummaryActivity[];
@@ -113,6 +114,18 @@ const Home: React.FC<IProps> = ({ activities }) => {
             </a>
           </DetailsParagraph>
         </section>
+        <a href="https://github.com/mathiassoeholm/bike-commute-stats">
+          <GithubIcon
+            css={css`
+              width: 2rem;
+              opacity: 0.4;
+
+              &:hover {
+                opacity: 1;
+              }
+            `}
+          />
+        </a>
       </div>
     </React.Fragment>
   );
