@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { SummaryActivity } from "../models/strava";
@@ -19,6 +20,15 @@ const Home: React.FC<IProps> = ({ activities }) => {
 
   const totalCO2Kg = totalKilometers * CO2_KILOGRAMS_PER_KILOMETER;
 
+  const DetailsParagraph = styled.p`
+    font-size: 0.75rem;
+    color: #333;
+
+    a {
+      color: black;
+    }
+  `;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -27,12 +37,13 @@ const Home: React.FC<IProps> = ({ activities }) => {
           href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;800&display=swap"
           rel="stylesheet"
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
       <div
         css={css`
           font-family: "Heebo", sans-serif;
           display: grid;
-          justify-content: center;
+          justify-items: center;
           align-items: center;
           height: 100%;
           letter-spacing: 0.11rem;
@@ -43,6 +54,7 @@ const Home: React.FC<IProps> = ({ activities }) => {
         <p
           css={css`
             text-align: center;
+            font-size: 1.5rem;
           `}
         >
           BY BIKING TO WORK, MATHIAS HAS SAVED
@@ -52,7 +64,7 @@ const Home: React.FC<IProps> = ({ activities }) => {
               display: inline-block;
               font-size: 3rem;
               font-weight: 800;
-              margin: 0.5rem;
+              margin: 1rem;
               text-align: center;
             `}
           >
@@ -70,7 +82,9 @@ const Home: React.FC<IProps> = ({ activities }) => {
         </p>
         <section
           css={css`
-            max-width: 600px;
+            max-width: 500px;
+            background: #f0f0f0;
+            padding: 0.75rem;
           `}
         >
           <h2
@@ -82,19 +96,22 @@ const Home: React.FC<IProps> = ({ activities }) => {
           >
             Details
           </h2>
-          <p>
+          <DetailsParagraph>
             * Savings are compared to driving an average new fossil fuel car.
-          </p>
-          <p>
+          </DetailsParagraph>
+          <DetailsParagraph>
             * I assume that biking emits 0 kg CO2, because it replaces exercise
             that would otherwise have taken place.
-          </p>
-          <p>
+          </DetailsParagraph>
+          <DetailsParagraph>
             * According to the The Danish Council on Climate Change
             (Klimarådet), an average new fossil fuel car emits 210 g CO2 per
-            kilometer. Source: “Hvor klimavenlige er elbiler sammenlignet med
-            benzin- og dieselbiler?”
-          </p>
+            kilometer. Source:{" "}
+            <a href="https://www.klimaraadet.dk/da/system/files_force/downloads/baggrundsnotat_-_hvor_klimavenlige_er_elbiler_sammenlignet_med_benzin-_og_dieselbiler.pdf">
+              “Hvor klimavenlige er elbiler sammenlignet med benzin- og
+              dieselbiler?”
+            </a>
+          </DetailsParagraph>
         </section>
       </div>
     </React.Fragment>
