@@ -6,9 +6,9 @@ import { URLSearchParams } from "url";
 import fetch from "node-fetch";
 import { MongoClient } from "mongodb";
 import { Helmet } from "react-helmet";
-import { minify } from "html-minifier";
+import prettier from "prettier";
+
 import { SummaryActivity } from "./models/strava";
-import { triggerAsyncId } from "async_hooks";
 
 require("dotenv").config();
 
@@ -106,20 +106,14 @@ require("dotenv").config();
             ${reactHtmlOutput}
         </body>
     </html>
-`;
+    `;
 
-    const minifiedHtml = minify(html, {
-      collapseWhitespace: true,
-      removeComments: true,
-      removeOptionalTags: true,
-      removeRedundantAttributes: true,
-      minifyCSS: true,
-    });
+    const prettifiedHtml = prettier.format(html, { parser: "html" });
 
     if (!existsSync("./build")) {
       mkdirSync("build");
     }
-    writeFileSync("./build/index.html", minifiedHtml);
+    writeFileSync("./build/index.html", prettifiedHtml);
   } finally {
     client.close();
   }
