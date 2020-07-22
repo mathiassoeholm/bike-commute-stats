@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css, Global } from "@emotion/core";
 import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
@@ -46,6 +46,24 @@ const Home: React.FC<IProps> = ({ activities }) => {
 
   return (
     <React.Fragment>
+      <Global
+        styles={css`
+          *,
+          *:before,
+          *:after {
+            box-sizing: border-box;
+          }
+
+          html {
+            height: 100%;
+          }
+
+          body {
+            height: 100%;
+            margin: 0;
+          }
+        `}
+      />
       <Helmet>
         <title>Mathias bikes to work</title>
         <link
@@ -63,7 +81,6 @@ const Home: React.FC<IProps> = ({ activities }) => {
           height: 100%;
           letter-spacing: 0.11rem;
           padding: 1rem;
-          box-sizing: border-box;
         `}
       >
         <p
