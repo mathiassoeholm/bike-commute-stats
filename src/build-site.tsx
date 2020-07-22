@@ -83,7 +83,7 @@ require("dotenv").config();
         break;
       }
 
-      allActivites = [...allActivites, ...activities.filter((a) => a.commute)];
+      allActivites = [...allActivites, ...activities];
 
       page++;
     }
