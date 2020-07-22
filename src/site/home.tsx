@@ -12,6 +12,20 @@ interface IProps {
 
 const CO2_KILOGRAMS_PER_KILOMETER = 0.21;
 
+const SubscriptTwo = () => {
+  return (
+    <span
+      css={css`
+        display: inline-block;
+        font-size: 0.6em;
+        transform: translateY(0.2em);
+      `}
+    >
+      2
+    </span>
+  );
+};
+
 const Home: React.FC<IProps> = ({ activities }) => {
   const commuteActivites = activities.filter((a) => a.commute);
   const totalKilometers = commuteActivites.reduce(
@@ -70,15 +84,7 @@ const Home: React.FC<IProps> = ({ activities }) => {
             `}
           >
             {Math.round(totalCO2Kg * 100) / 100} kg CO
-            <span
-              css={css`
-                display: inline-block;
-                font-size: 0.6em;
-                transform: translateY(0.2em);
-              `}
-            >
-              2
-            </span>
+            <SubscriptTwo />
           </span>
         </p>
         <section
@@ -101,13 +107,14 @@ const Home: React.FC<IProps> = ({ activities }) => {
             * Savings are compared to driving an average new fossil fuel car.
           </DetailsParagraph>
           <DetailsParagraph>
-            * I assume that biking emits 0 kg CO2, because it replaces exercise
-            that would otherwise have taken place.
+            * I assume that biking emits 0 kg CO
+            <SubscriptTwo />, because it replaces exercise that would otherwise
+            have taken place.
           </DetailsParagraph>
           <DetailsParagraph>
             * According to the The Danish Council on Climate Change
-            (Klimarådet), an average new fossil fuel car emits 210 g CO2 per
-            kilometer. Source:{" "}
+            (Klimarådet), an average new fossil fuel car emits 210 g CO
+            <SubscriptTwo /> per kilometer. Source:{" "}
             <a href="https://www.klimaraadet.dk/da/system/files_force/downloads/baggrundsnotat_-_hvor_klimavenlige_er_elbiler_sammenlignet_med_benzin-_og_dieselbiler.pdf">
               “Hvor klimavenlige er elbiler sammenlignet med benzin- og
               dieselbiler?”
