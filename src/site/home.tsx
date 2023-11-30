@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx, css, Global } from "@emotion/core";
+import { Global, css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { SummaryActivity } from "../models/strava";
 import { GithubIcon } from "./github-icon";
+import { StravaIcon } from "./strava-icon";
 
 interface IProps {
   activities: SummaryActivity[];
@@ -138,18 +139,32 @@ const Home: React.FC<IProps> = ({ activities }) => {
             </a>
           </DetailsParagraph>
         </section>
-        <a href="https://github.com/mathiassoeholm/bike-commute-stats">
-          <GithubIcon
-            css={css`
-              width: 2rem;
-              opacity: 0.4;
+        <footer
+          css={css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          `}
+        >
+          <a href="https://github.com/mathiassoeholm/bike-commute-stats">
+            <GithubIcon
+              css={css`
+                width: 2rem;
+                opacity: 0.4;
 
-              &:hover {
-                opacity: 1;
-              }
+                &:hover {
+                  opacity: 1;
+                }
+              `}
+            />
+          </a>
+          <StravaIcon
+            css={css`
+              width: 10rem;
             `}
           />
-        </a>
+        </footer>
       </div>
     </React.Fragment>
   );
